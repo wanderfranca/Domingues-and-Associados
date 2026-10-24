@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Domingues & Associados"
+description = "Site institucional do escritório Domingues & Associados Advocacia Empresarial, com conteúdo jurídico, áreas de atuação, notícias e contato."
+version = "1.0.0"
+id = "artifacts/domingues-associados"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23992
+
+[services.development]
+run = "pnpm --filter @workspace/domingues-associados run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/domingues-associados", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/domingues-associados/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23992"
+BASE_PATH = "/"
